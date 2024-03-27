@@ -22,12 +22,24 @@ def init_db():
     cur.close()
 
 
+@app.route("/add", methods=["POST"])
+def add_wish():
+    data = request.form["content"]
+    cur = mysql.connection.cursor()
+    cur.execute("INSERT INTO wishlist (content) VALUES (%s)", (data,))
+    mysql.connection.commit()
+    cur.close()
+    return "Your wish has been added"
+
 @app.route("/")
 def wishes():
     init_db()
     cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM wishlist")
+    wishes = cur.fetchall()
     cur.close()
-    return render_template("wishes.html")
+    return render_template("wishes.html", wishes=wishes)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
