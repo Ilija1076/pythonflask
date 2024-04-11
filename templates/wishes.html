@@ -10,12 +10,9 @@
     <h1>Wishlist</h1>
     <ul>
         {% for wish in wishes %}
-        <li>{{ wish[1] }}</li>
+        <li>{{ wish[1] }}
+        </li>
         {% endfor %}
     </ul>
-    <form action="/add" method="post">
-        <input type="text" name="content" placeholder="Please enter your wish">
-        <button type="submit">Add Task</button>
-    </form>
 </body>
 </html>
